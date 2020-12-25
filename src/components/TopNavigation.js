@@ -8,7 +8,7 @@ class TopNavigation extends Component {
                 <Container fluid={true}>
                     <Row style={{ background: "blue", fontSize: "30px", padding:"5px", marginBottom:"1rem", color: "white" }}
                         className="justify-content-md-center">
-                        <p>Book Finder</p>
+                        <p>{this.props.value}</p>
                     </Row>
                 </Container>
             </Fragment>

@@ -50,7 +50,7 @@ class HomePage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigation />
+                <TopNavigation value={"Book Finder"}/>
                 <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                 <BookList books={this.state.books} />
                 {this.state.totalBooks > 10 ? (

@@ -8,7 +8,7 @@ export default class BookDetailpage extends Component {
     render() {
         return (
             <Fragment>
-                <TopNavigation />
+                <TopNavigation value={"Book Details"}/>
                 <Container style={{ marginTop: '4rem' }}>
                     <Row className="justify-content-md-center">
                         <Image src={this.props.location.state.img} height="500px" />
