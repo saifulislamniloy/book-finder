@@ -14,7 +14,7 @@ class TopNavigation extends Component {
                             <Nav className="mr-auto">
                             </Nav>
                             <Nav >
-                                <NavLink exact activeStyle={{color: '#002C42'}}  to="/">হোম</NavLink>
+                                <NavLink exact activeStyle={{color: '#002C42'}}  to="/">Home</NavLink>
                             </Nav>
                         </Navbar.Collapse>
                     </Navbar>
