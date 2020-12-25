@@ -37,7 +37,6 @@ class HomePage extends Component {
         return (
             <Fragment>
                 <TopNavigation />
-                <br /><br /><br />
                 <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                 <BookList books={this.state.books} />
             </Fragment>

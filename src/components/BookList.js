@@ -18,14 +18,16 @@ export default class BookList extends Component {
     }
 
     setBookListView() {
-        const view = this.props.books.map(result => {
+        const view = this.props.books.map(result=> {
             return (
                 <Col lg={4} md={6} sm={12}>
                     <Book
                         id={result.id}
                         title={result.volumeInfo.title}
-                        des={result.volumeInfo.subtitle}
+                        des={result.volumeInfo.description}
                         img={result.volumeInfo.imageLinks.thumbnail}
+                        authors={result.volumeInfo.authors}
+                        publishedDate={result.volumeInfo.publishedDate}
                     />
                 </Col>
             )

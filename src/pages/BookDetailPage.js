@@ -10,27 +10,29 @@ export default class BookDetailpage extends Component {
             <Fragment>
                 <TopNavigation />
                 <Container style={{ marginTop: '4rem' }}>
-                    <Row>
-                        <Col lg={6} md={6} sm={12}>
-                            <Row className="justify-content-md-center">
-                                <Image src={this.props.location.state.img} height="500px" />
-                            </Row>
-                        </Col>
-                        <Col lg={6} md={6} sm={12}>
-                            <Row style={{ fontSize: '30px' }} className="justify-content-md-center">
-                                <p>{this.props.location.state.title}</p>
-                            </Row>
-                            <Row style={{ fontSize: '20px' }} className="justify-content-md-center">
-                                <p>{this.props.location.state.des}</p>
-                            </Row>
-                            <Row style={{ fontSize: '20px' }} className="justify-content-md-center">
-                                <Link to={{
-                                    pathname: "/",
-                                }}>
-                                    <Button variant="primary">Home</Button>
-                                </Link>
-                            </Row>
-                        </Col>
+                    <Row className="justify-content-md-center">
+                        <Image src={this.props.location.state.img} height="500px" />
+                    </Row>
+                    <Row style={{ fontSize: '30px' }} className="justify-content-md-center">
+                        <p>{this.props.location.state.title}</p>
+                    </Row>
+                    <Row style={{ fontSize: '20px' }} className="text-justify">
+                        <p>{this.props.location.state.des}</p>
+                    </Row>
+                    <Row style={{ fontSize: '20px' }} className="justify-content-md-center">
+                        {
+                           "Authors: "+ this.props.location.state.authors
+                        }
+                    </Row>
+                    <Row style={{ fontSize: '20px' }} className="justify-content-md-center">
+                        <p>{"Published Date: "+this.props.location.state.publishedDate}</p>
+                    </Row>
+                    <Row style={{ fontSize: '20px' }} className="justify-content-md-center">
+                        <Link to={{
+                            pathname: "/",
+                        }}>
+                            <Button variant="primary">Back to Home</Button>
+                        </Link>
                     </Row>
 
                 </Container>

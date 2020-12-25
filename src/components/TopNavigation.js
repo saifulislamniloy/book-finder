@@ -1,23 +1,15 @@
-import React, {Component, Fragment} from 'react';
-import {Navbar, Nav, Container} from "react-bootstrap";
-import {NavLink} from "react-router-dom";
+import React, { Component, Fragment } from 'react';
+import { Container, Row } from "react-bootstrap";
 
 class TopNavigation extends Component {
     render() {
         return (
             <Fragment>
-                <Container className="topNavigation">
-                    <Navbar bg="primary" variant="dark"  fixed="top" collapseOnSelect expand="lg">
-                        <Navbar.Brand href="/" >Book Finder</Navbar.Brand>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                        <Navbar.Collapse id="responsive-navbar-nav" >
-                            <Nav className="mr-auto">
-                            </Nav>
-                            <Nav >
-                                <NavLink exact activeStyle={{color: '#002C42'}}  to="/">Home</NavLink>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Navbar>
+                <Container fluid={true}>
+                    <Row style={{ background: "blue", fontSize: "30px", padding:"5px", marginBottom:"1rem", color: "white" }}
+                        className="justify-content-md-center">
+                        <p>Book Finder</p>
+                    </Row>
                 </Container>
             </Fragment>
         );
