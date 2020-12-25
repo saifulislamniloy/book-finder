@@ -8,7 +8,7 @@ class TopNavigation extends Component {
             <Fragment>
                 <Container className="topNavigation">
                     <Navbar bg="primary" variant="dark"  fixed="top" collapseOnSelect expand="lg">
-                        <Navbar.Brand href="/" href="#home">Book Finder</Navbar.Brand>
+                        <Navbar.Brand href="/" >Book Finder</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav" >
                             <Nav className="mr-auto">
