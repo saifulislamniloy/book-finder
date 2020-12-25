@@ -3,6 +3,7 @@ import Searchbar from '../components/Searchbar';
 import TopNavigation from "../components/TopNavigation";
 import { getBooksByTerm } from '../api/GBooks';
 import BookList from '../components/BookList';
+import Pagination from '../components/Pagination';
 
 
 class HomePage extends Component {
@@ -11,7 +12,8 @@ class HomePage extends Component {
         this.state = {
             searchTerm: "",
             books: [],
-            totalBooks: "",
+            totalBooks: 0,
+            currentPage: 1,
         };
     }
     componentDidMount() {
@@ -20,7 +22,7 @@ class HomePage extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        await getBooksByTerm(this.state.searchTerm/*, setMovies, currentPage, setTotalPages*/)
+        await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
             .then(respone => {
                 this.setState({
                     books: respone.items,
@@ -33,12 +35,33 @@ class HomePage extends Component {
     handleChange = (event) => {
         this.setState({ searchTerm: event.target.value })
     };
+
+    nextPage = async (page_number) => {
+        this.setState({currentPage: page_number})
+        await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
+        .then(respone => {
+            this.setState({
+                books: respone.items,
+                totalBooks: respone.totalItems,
+            })
+        });;
+    };
+
     render() {
         return (
             <Fragment>
                 <TopNavigation />
                 <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
                 <BookList books={this.state.books} />
+                {this.state.totalBooks > 10 ? (
+                    <Pagination
+                        nextPage={this.nextPage}
+                        currentPage={this.state.currentPage}
+                        totalPages={this.state.totalBooks/10}
+                    />
+                ) : (
+                        ""
+                    )}
             </Fragment>
         );
     }
