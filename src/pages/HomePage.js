@@ -14,6 +14,7 @@ class HomePage extends Component {
             books: [],
             totalBooks: 0,
             currentPage: 1,
+            sortOrder: "newest",
         };
     }
     componentDidMount() {
@@ -22,7 +23,7 @@ class HomePage extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
+        await getBooksByTerm(this.state.searchTerm, this.state.currentPage, this.state.sortOrder)
             .then(respone => {
                 this.setState({
                     books: respone.items,
@@ -36,28 +37,44 @@ class HomePage extends Component {
         this.setState({ searchTerm: event.target.value })
     };
 
+    handleSortOrderChange = async (value) => {
+        this.setState({ sortOrder: value })
+        console.log("State Order: "+this.state.sortOrder)
+        await getBooksByTerm(this.state.searchTerm, this.state.currentPage, this.state.sortOrder)
+            .then(respone => {
+                this.setState({
+                    books: respone.items,
+                    totalBooks: respone.totalItems,
+                })
+            });
+    };
+
     nextPage = async (page_number) => {
-        this.setState({currentPage: page_number})
+        this.setState({ currentPage: page_number })
         await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
-        .then(respone => {
-            this.setState({
-                books: respone.items,
-                totalBooks: respone.totalItems,
-            })
-        });;
+            .then(respone => {
+                this.setState({
+                    books: respone.items,
+                    totalBooks: respone.totalItems,
+                })
+            });;
     };
 
     render() {
         return (
             <Fragment>
-                <TopNavigation value={"Book Finder"}/>
-                <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+                <TopNavigation value={"Book Finder"} />
+                <Searchbar
+                    handleChange={this.handleChange}
+                    handleSubmit={this.handleSubmit}
+                    handleSortOrder={this.handleSortOrderChange}
+                />
                 <BookList books={this.state.books} />
                 {this.state.totalBooks > 10 ? (
                     <Pagination
                         nextPage={this.nextPage}
                         currentPage={this.state.currentPage}
-                        totalPages={this.state.totalBooks/10}
+                        totalPages={this.state.totalBooks / 10}
                     />
                 ) : (
                         ""
