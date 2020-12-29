@@ -4,6 +4,7 @@ import TopNavigation from "../components/TopNavigation";
 import { getBooksByTerm } from '../api/GBooks';
 import BookList from '../components/BookList';
 import Pagination from '../components/Pagination';
+import Loader from '../components/Loader';
 
 
 class HomePage extends Component {
@@ -14,7 +15,7 @@ class HomePage extends Component {
             books: [],
             totalBooks: 0,
             currentPage: 1,
-            sortOrder: "newest",
+            loading: false,
         };
     }
     componentDidMount() {
@@ -23,11 +24,13 @@ class HomePage extends Component {
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        await getBooksByTerm(this.state.searchTerm, this.state.currentPage, this.state.sortOrder)
+        this.setState({loading:true});
+        await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
             .then(respone => {
                 this.setState({
                     books: respone.items,
                     totalBooks: respone.totalItems,
+                    loading: false
                 })
             });
 
@@ -38,8 +41,16 @@ class HomePage extends Component {
     };
 
     handleSortOrderChange = async (value) => {
-        this.setState({ sortOrder: value })
-        console.log("State Order: "+this.state.sortOrder)
+        if (value === "A-Z") {
+
+        } else if (value === "Z-A") {
+
+        } else if (value === "newest") {
+
+        } else if (value === "oldest") {
+
+        }
+        console.log("State Order: " + this.state.sortOrder)
         await getBooksByTerm(this.state.searchTerm, this.state.currentPage, this.state.sortOrder)
             .then(respone => {
                 this.setState({
@@ -69,6 +80,7 @@ class HomePage extends Component {
                     handleSubmit={this.handleSubmit}
                     handleSortOrder={this.handleSortOrderChange}
                 />
+                {this.state.loading ? <Loader /> : <span></span>}
                 <BookList books={this.state.books} />
                 {this.state.totalBooks > 10 ? (
                     <Pagination
