@@ -13,7 +13,6 @@ const getBooksByTerm = (SearchTerm, currentPage) => {
       api_key: "209d31e2b7002857fcc0fdeff8329ae2",
     },
   }).then((response) => {
-    console.log(response.data);
     return response.data;
   });
 };

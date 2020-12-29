@@ -16,15 +16,17 @@ class HomePage extends Component {
             totalBooks: 0,
             currentPage: 1,
             loading: false,
+            sortOrder: ""
         };
     }
     componentDidMount() {
         window.scrollTo(0, 0);
+        this.setState({ sortOder: "" })
     }
 
     handleSubmit = async (event) => {
         event.preventDefault();
-        this.setState({loading:true});
+        this.setState({ loading: true });
         await getBooksByTerm(this.state.searchTerm, this.state.currentPage)
             .then(respone => {
                 this.setState({
@@ -40,25 +42,66 @@ class HomePage extends Component {
         this.setState({ searchTerm: event.target.value })
     };
 
-    handleSortOrderChange = async (value) => {
-        if (value === "A-Z") {
-
-        } else if (value === "Z-A") {
-
-        } else if (value === "newest") {
-
-        } else if (value === "oldest") {
-
+    handleSortOrderChange = (value) => {
+        let data = this.state.books;
+        if (data.length === 0) {
+            alert("Search with a keyword first");
+            return;
         }
-        console.log("State Order: " + this.state.sortOrder)
-        await getBooksByTerm(this.state.searchTerm, this.state.currentPage, this.state.sortOrder)
-            .then(respone => {
-                this.setState({
-                    books: respone.items,
-                    totalBooks: respone.totalItems,
-                })
-            });
+
+        this.setState({ books: [] })
+        if (value === "A-Z") {
+            data = data.sort(this.compare)
+        } else if (value === "Z-A") {
+            data = data.sort(this.reverseCompare)
+        } else if (value === "newest") {
+            data = data.sort(this.compareTime)
+        } else if (value === "oldest") {
+            data = data.sort(this.reverseCompareTime)
+        }
+        console.log("Sort Order: " + value)
+        console.log(data)
+        this.setState({ books: data, sortOrder:value })
     };
+
+    compare(a, b) {
+        if (a.volumeInfo.title < b.volumeInfo.title) {
+            return -1;
+        }
+        if (a.volumeInfo.title > b.volumeInfo.title) {
+            return 1;
+        }
+        return 0;
+    }
+
+    reverseCompare(a, b) {
+        if (a.volumeInfo.title < b.volumeInfo.title) {
+            return 1;
+        }
+        if (a.volumeInfo.title > b.volumeInfo.title) {
+            return -1;
+        }
+        return 0;
+    }
+
+    compareTime(a, b) {
+        if (a.volumeInfo.publishedDate < b.volumeInfo.publishedDate) {
+            return -1;
+        }
+        if (a.volumeInfo.publishedDate > b.volumeInfo.publishedDate) {
+            return 1;
+        }
+        return 0;
+    }
+    reverseCompareTime(a, b) {
+        if (a.volumeInfo.publishedDate < b.volumeInfo.publishedDate) {
+            return 1;
+        }
+        if (a.volumeInfo.publishedDate > b.volumeInfo.publishedDate) {
+            return -1;
+        }
+        return 0;
+    }
 
     nextPage = async (page_number) => {
         this.setState({ currentPage: page_number })
@@ -81,7 +124,7 @@ class HomePage extends Component {
                     handleSortOrder={this.handleSortOrderChange}
                 />
                 {this.state.loading ? <Loader /> : <span></span>}
-                <BookList books={this.state.books} />
+                <BookList books={this.state.books} sortOrder={this.state.sortOrder} />
                 {this.state.totalBooks > 10 ? (
                     <Pagination
                         nextPage={this.nextPage}

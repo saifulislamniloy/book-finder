@@ -15,6 +15,11 @@ export default class BookList extends Component {
     componentDidUpdate(prevProps) {
         if (prevProps.books !== this.props.books) {
             this.setBookListView();
+            console.log("New Page Loading .....................")
+        }
+        if(prevProps.sortOrder !== this.props.sortOrder){
+            this.setBookListView();
+            console.log("sorting .....................")
         }
     }
 

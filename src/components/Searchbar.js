@@ -23,8 +23,8 @@ const Searchbar = (props) => {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item onClick={()=>props.handleSortOrder("newest")} >A-Z</Dropdown.Item>
-                <Dropdown.Item onClick={()=>props.handleSortOrder("newest")} >Z-A</Dropdown.Item>
+                <Dropdown.Item onClick={()=>props.handleSortOrder("A-Z")} >A-Z</Dropdown.Item>
+                <Dropdown.Item onClick={()=>props.handleSortOrder("Z-A")} >Z-A</Dropdown.Item>
                 <Dropdown.Item onClick={()=>props.handleSortOrder("newest")}>Newest</Dropdown.Item>
                 <Dropdown.Item onClick={()=>props.handleSortOrder("oldest")}>Oldest</Dropdown.Item>
               </Dropdown.Menu>
