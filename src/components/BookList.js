@@ -25,13 +25,14 @@ export default class BookList extends Component {
 
     setBookListView() {
         const view = this.props.books.map(result => {
+            console.log(result.volumeInfo.imageLinks)
             return (
                 <Col lg={4} md={6} sm={12}>
                     <Book
                         id={result.id}
                         title={result.volumeInfo.title}
                         des={result.volumeInfo.description}
-                        img={typeof result.volumeInfo.imageLinks.thumbnail !== 'undefined' ?
+                        img={typeof result.volumeInfo.imageLinks !== 'undefined' ?
                             result.volumeInfo.imageLinks.thumbnail
                             :
                             this.state.bookImg}
